@@ -25,16 +25,16 @@ anvur <- read_csv("./DPANVREP.csv") %>%
          universityrank = factor(universityrank, levels = c('low', 'medium', 'high')))
 
 anvur_wide <- anvur %>% 
-  select(everything(), -c(authors:int_score, c_avg, fascia_journal, fascia_pre_post, proportion_fascia)) %>%
+  select(everything(), -c(year:int_score, c_avg, fascia_journal, fascia_pre_post, proportion_fascia)) %>%
   distinct(joinname_author, ANVUR, .keep_all = T) %>%
   pivot_wider(names_from = ANVUR, values_from = c(fss_pre_post, pub_pre_post, cit_pre_post, int_pre_post, coauthors_pre_post))
 
 anvur_long <- anvur %>% 
-  select(everything(), -c(authors:int_score, c_avg, fascia_journal, fascia_pre_post, proportion_fascia)) %>% 
+  select(everything(), -c(year:int_score, c_avg, fascia_journal, fascia_pre_post, proportion_fascia)) %>% 
   distinct(joinname_author, ANVUR, .keep_all = T)
 
 anvur_long_fascia <- anvur %>% 
-  select(everything(), -c(authors:int_score, c_avg)) %>% 
+  select(everything(), -c(year:int_score, c_avg)) %>% 
   distinct(joinname_author, ANVUR, fascia_journal, .keep_all = T) %>% 
   mutate(ANVUR = factor(ANVUR, levels = c('Before_ANVUR', 'Post_ANVUR'), ordered = T),
          fascia_journal = factor(fascia_journal, levels = c('not_fascia_A', 'fascia_A'), ordered = T),
